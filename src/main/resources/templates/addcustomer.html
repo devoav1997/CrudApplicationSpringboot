@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+        .header {
+            background-color: DeepskyBlue;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .save {
+            width: 25%;
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produk">Data Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kredit">Data Kredit</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Histori Cicilan</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/histori">Histori Cicilan by All</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namacustomer">Histori Cicilan by Customer</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namaproduk">Histori Cicilan by Produk</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tampilansalesman">Tugas Harian</a>
+                    </li>
+                </ul>
+                <form th:action="@{/InsertPembayaranValue}" action="#" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="number" id="" name="idCust" placeholder="ID Customer" aria-label="Search" />
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Customer" />
+                </form>
+            </div>
+        </nav>
+        <!-- End Of Navbar -->
+
+        <!-- Content -->
+        <br />
+        <div style="margin: auto; width: 52%; border-radius: 5px; padding: 20px;">
+            <h2>Input Data Customer</h2>
+            <form action="#" th:action="@{/addcustomer/{id}(id=${id_cust})}" th:object="${customer}" method="post" style="margin-top: 20pt;">
+                <div class="form-group row">
+                    <label for="id_cust" class="col-sm-2 col-form-label">ID Customer:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{id_cust}" id="id_cust" placeholder="Masukkan Customer ID" style="border-radius: 3pt;" required />
+                        <span th:if="${#fields.hasErrors('id_cust')}" th:errors="*{id_cust}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nama_cust" class="col-sm-2 col-form-label">Nama Customer:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{nama_cust}" id="nama_cust" placeholder="Masukkan Nama Customer" style="border-radius: 3pt;" required />
+                        <span th:if="${#fields.hasErrors('nama_cust')}" th:errors="*{nama_cust}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="alamat" class="col-sm-2 col-form-label">Alamat:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{alamat}" id="alamat" placeholder="Masukkan Alamat" style="border-radius: 3pt;" required />
+                        <span th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="no_ktp" class="col-sm-2 col-form-label">No KTP:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{no_ktp}" id="no_ktp" placeholder="Masukkan No KTP" required />
+                        <span th:if="${#fields.hasErrors('no_ktp')}" th:errors="*{no_ktp}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_kredit" class="col-sm-2 col-form-label">ID Kredit:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{id_kredit}" id="id_kredit" placeholder="Masukkan Kredit ID" style="border-radius: 3pt;" required />
+                        <span th:if="${#fields.hasErrors('id_kredit')}" th:errors="*{id_kredit}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="keterangan" class="col-sm-2 col-form-label">Keterangan:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{keterangan}" id="keterangan" placeholder="Masukkan Keterangan" style="border-radius: 3pt;" />
+                        <span th:if="${#fields.hasErrors('keterangan')}" th:errors="*{keterangan}"></span>
+                    </div>
+                </div>
+                <input class="save" type="submit" value="Simpan Customer" />
+            </form>
+        </div>
+        <!-- End Of Content -->
+
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

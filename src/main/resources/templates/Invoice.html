@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+        .header {
+            background-color: DeepskyBlue;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        div.a {
+            visibility: hidden;
+        }
+
+        /*print pdf*/
+        .button {
+            width: 20%;
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .buttonexcel {
+            width: 20%;
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="button"] {
+            width: 20%;
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /*Tampilan Invoice*/
+
+        /* -------------------------------------
+    BODY & CONTAINER
+------------------------------------- */
+        .body-wrap {
+            background-color: #f6f6f6;
+            width: 100%;
+        }
+
+        .container {
+            display: block !important;
+            max-width: 600px !important;
+            margin: 0 auto !important;
+            /* makes it centered */
+            clear: both !important;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: block;
+            padding: 20px;
+        }
+
+        /* -------------------------------------
+    HEADER, FOOTER, MAIN
+------------------------------------- */
+        .main {
+            background: #fff;
+            border: 1px solid #e9e9e9;
+            border-radius: 3px;
+        }
+
+        .content-wrap {
+            padding: 20px;
+        }
+
+        .content-block {
+            padding: 0 0 20px;
+        }
+
+        /* -------------------------------------
+    LINKS & BUTTONS
+------------------------------------- */
+
+        .btn-primary {
+            text-decoration: none;
+            color: #fff;
+            background-color: #1ab394;
+            border: solid #1ab394;
+            border-width: 5px 10px;
+            line-height: 2;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 5px;
+            text-transform: capitalize;
+        }
+
+        /* -------------------------------------
+    OTHER STYLES THAT MIGHT BE USEFUL
+------------------------------------- */
+        .last {
+            margin-bottom: 0;
+        }
+
+        .first {
+            margin-top: 0;
+        }
+
+        .aligncenter {
+            text-align: center;
+        }
+
+        .alignright {
+            text-align: right;
+        }
+
+        .alignleft {
+            text-align: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+        /* -------------------------------------
+    INVOICE
+    Styles for the billing table
+------------------------------------- */
+        .invoice {
+            margin: 40px auto;
+            text-align: left;
+            width: 80%;
+        }
+        .invoice td {
+            padding: 5px 0;
+        }
+        .invoice .invoice-items {
+            width: 100%;
+        }
+        .invoice .invoice-items td {
+            border-top: #eee 1px solid;
+        }
+        .invoice .invoice-items .total td {
+            border-top: 2px solid #333;
+            border-bottom: 2px solid #333;
+            font-weight: 700;
+        }
+
+        /* -------------------------------------
+    RESPONSIVE AND MOBILE FRIENDLY STYLES
+------------------------------------- */
+        @media only screen and (max-width: 640px) {
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-weight: 600 !important;
+                margin: 20px 0 5px !important;
+            }
+
+            h1 {
+                font-size: 22px !important;
+            }
+
+            h2 {
+                font-size: 18px !important;
+            }
+
+            h3 {
+                font-size: 16px !important;
+            }
+
+            .container {
+                width: 100% !important;
+            }
+
+            .content,
+            .content-wrap {
+                padding: 10px !important;
+            }
+
+            .invoice {
+                width: 100% !important;
+            }
+        }
+    </style>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produk">Data Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kredit">Data Kredit</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Histori Cicilan</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/histori">Histori Cicilan by All</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namacustomer">Histori Cicilan by Customer</a>
+                            <a class="dropdown-item" href="http://localhost:8888s/histori/search/namaproduk">Histori Cicilan by Produk</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tampilansalesman">Tugas Harian</a>
+                    </li>
+                </ul>
+                <form th:action="@{/InsertPembayaranValue}" action="#" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="number" id="" name="idCust" placeholder="ID Customer" aria-label="Search" />
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Customer" />
+                </form>
+            </div>
+        </nav>
+        <!-- End Of Navbar -->
+
+        <!-- Content -->
+        <br />
+        <div style="margin: auto; width: 52%; border-radius: 5px; padding: 20px;">
+            <div id="invoice">
+                <table class="body-wrap">
+                    <tbody>
+                        <tr>
+                            <td class="container" width="600">
+                                <div class="content">
+                                    <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="content-wrap aligncenter">
+                                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="content-block">
+                                                                    <h2>Invoice</h2>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="content-block">
+                                                                    <table class="invoice" cellpadding="0" cellspacing="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td>Nama Customer</td>
+                                                                                                <td th:text="${nama_customer}"></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Total Pelunasan</td>
+                                                                                                <td th:text="${total_pelunasan}"></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Sisa Pelunasan</td>
+                                                                                                <td th:text="${sisa_pelunasan}"></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Nama Produk</td>
+                                                                                                <td th:text="${nama_produk}"></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Jumlah Pembayaran</td>
+                                                                                                <td th:text="${bayar_bulan_ini}"></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>Sisa Tenor</td>
+                                                                                                <td th:text="${sisa_tenor}"></td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="content-block">
+                                                                    Acc Finance &reg;
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="button" onclick="goBack()">Go Back</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <button class="buttonexcel" onclick="exportTableToExcel('tableinvoice')">Print Excel</button>
+            <input type="button" id="btnExport" value="Print PDF" />
+
+            <div class="a">
+                <table id="tableinvoice" class="table table-bordered" style="width: 90%;">
+                    <thead>
+                        <tr>
+                            <th>Name Customer</th>
+                            <th>Total Pelunasan</th>
+                            <th>Sisa Pelunasan</th>
+                            <th>Nama Produk</th>
+                            <th>Jumlah Pembayaran</th>
+                            <th>Sisa Tenor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td th:text="${nama_customer}"></td>
+                            <td th:text="${total_pelunasan}"></td>
+                            <td th:text="${sisa_pelunasan}"></td>
+                            <td th:text="${nama_produk}"></td>
+                            <td th:text="${bayar_bulan_ini}"></td>
+                            <td th:text="${sisa_tenor}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <script>
+                function exportTableToExcel(tableID, filename = "") {
+                    var downloadLink;
+                    var dataType = "application/vnd.ms-excel";
+                    var tableSelect = document.getElementById(tableID);
+                    var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
+
+                    // Specify file name
+                    filename = filename ? filename + ".xls" : "Invoice.xls";
+
+                    // Create download link element
+                    downloadLink = document.createElement("a");
+
+                    document.body.appendChild(downloadLink);
+
+                    if (navigator.msSaveOrOpenBlob) {
+                        var blob = new Blob(["\ufeff", tableHTML], {
+                            type: dataType,
+                        });
+                        navigator.msSaveOrOpenBlob(blob, filename);
+                    } else {
+                        // Create a link to the file
+                        downloadLink.href = "data:" + dataType + ", " + tableHTML;
+
+                        // Setting the file name
+                        downloadLink.download = filename;
+
+                        //triggering the function
+                        downloadLink.click();
+                    }
+                }
+            </script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+            <script type="text/javascript">
+                $("body").on("click", "#btnExport", function () {
+                    html2canvas($("#invoice")[0], {
+                        onrendered: function (canvas) {
+                            var data = canvas.toDataURL();
+                            var docDefinition = {
+                                content: [
+                                    {
+                                        image: data,
+                                        width: 500,
+                                    },
+                                ],
+                            };
+
+                            pdfMake.createPdf(docDefinition).download("Invoice.pdf");
+                        },
+                    });
+                });
+            </script>
+        </div>
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

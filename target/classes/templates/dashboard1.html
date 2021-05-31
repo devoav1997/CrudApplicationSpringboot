@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+        input[type="submit"] {
+            width: 40%;
+            color: white;
+            padding: 5.7px 20px;
+            border: 1px solid #28a745;
+            color: #28a745;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li>
+                        <a class="nav-item" href="/">
+                            <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produk">Data Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kredit">Data Kredit</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Histori Cicilan</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/histori">Histori Cicilan by All</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namacustomer">Histori Cicilan by Customer</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namaproduk">Histori Cicilan by Produk</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tampilansalesman">Tugas Harian</a>
+                    </li>
+                </ul>
+            </div>
+            <form th:action="@{/InsertPembayaranValue}" action="#" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="number" id="" name="idCust" placeholder="ID Customer" aria-label="Search" />
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Customer" />
+            </form>
+        </nav>
+        <!-- End Of Navbar -->
+
+        <!-- Content -->
+
+        <br />
+        <h2 style="text-align: center;">Welcome to ACC Finance!</h2>
+        <br />
+        <p style="text-align: center; margin: 12px 20px;">
+            Kredit multiguna terpercaya dari Astra Credit Companies, melayani selama 38 tahun. Ajukan pinjaman dana untuk modal usaha, pendidikan, pengobatan, dan keperluan lainnya. <br />
+            Aman terpercaya. Bunga kompetitif. Proses cepat 1x24 jam. Jaringan luas seIndonesia.
+        </p>
+        <div class="container">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="/img/Banner1.jpg" alt="Banner 1" style="width: 100%;" />
+                    </div>
+
+                    <div class="item">
+                        <img src="/img/Banner2.jpg" alt="Banner 2" style="width: 100%;" />
+                    </div>
+
+                    <div class="item">
+                        <img src="/img/Banner3.jpg" alt="Banner 3" style="width: 100%;" />
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <!-- End Of Content -->
+
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

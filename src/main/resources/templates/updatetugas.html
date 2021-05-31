@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+        .header {
+            background-color: DeepskyBlue;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 20%;
+            background-color: dodgerblue;
+            color: white;
+            padding: 10px 20px;
+            margin: 4px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: deepskyblue;
+        }
+        input[type="date"] {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 0px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+            </a>
+        </nav>
+        <!-- End Of Navbar -->
+        <!-- Content -->
+        <div style="margin: auto; width: 52%; border-radius: 5px; padding: 20px;" class="container">
+            <!-- <h2>Input Data Produk</h2>-->
+            <form action="#" th:action="@{/updatetugas/{id}(id=${id_salesman})}" th:object="${tugas}" method="post">
+                <div class="form-group row">
+                    <label for="id_salesman" class="col-sm-2 col-form-label">Salesman ID:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{id_salesman}" id="id_salesman" placeholder="Insert Salesman ID" required />
+                        <span th:if="${#fields.hasErrors('id_salesman')}" th:errors="*{id_salesman}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nama_salesman" class="col-sm-2 col-form-label">Nama Salesman:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{nama_salesman}" id="nama_salesman" placeholder="Insert Nama Salesman" required />
+                        <span th:if="${#fields.hasErrors('nama_salesman')}" th:errors="*{nama_salesman}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="tugas_harian" class="col-sm-2 col-form-label">Tugas Harian:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{tugas_harian}" id="tugas_harian" placeholder="Insert Tugas Harian" required />
+                        <span th:if="${#fields.hasErrors('tugas_harian')}" th:errors="*{tugas_harian}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="tanggal_tugas" class="col-sm-2 col-form-label">Tanggal Tugas:</label>
+                    <div class="col-sm-10">
+                        <input type="date" th:field="*{tanggal_tugas}" id="tanggal_tugas" placeholder="Insert Tanggal Tugas" required />
+                        <span th:if="${#fields.hasErrors('tanggal_tugas')}" th:errors="*{tanggal_tugas}"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="supervisor" class="col-sm-2 col-form-label">Supervisor:</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{supervisor}" id="supervisor" placeholder="Insert Supervisor" required />
+                        <span th:if="${#fields.hasErrors('supervisor')}" th:errors="*{supervisor}"></span>
+                    </div>
+                </div>
+
+                <input type="submit" value="Simpan Tugas" />
+            </form>
+        </div>
+
+        <!-- End Of Content -->
+
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

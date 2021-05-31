@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+            </a>
+        </nav>
+        <!-- End Of Navbar -->
+        <!-- Content -->
+        <div th:switch="${diambiltug}">
+            <!-- <h2 th:case="null">Produk</h2> -->
+            <div th:case="*">
+                <br />
+                <br />
+                <h2 style="text-align: center;">Data Tugas</h2>
+                <a class="btn btn-primary float-right" style="margin-bottom: 10pt; margin-right: 20pt;" href="/signuptask" role="button">Tambah Salesman</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Salesman Id</th>
+                            <th scope="col">Nama Salesman</th>
+                            <th scope="col">Tugas Harian</th>
+                            <th scope="col">Tanggal Tugas</th>
+                            <th scope="col">Supervisor</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tugas : ${diambiltug}">
+                            <td th:text="${tugas.id_salesman}"></td>
+                            <td th:text="${tugas.nama_salesman}"></td>
+                            <td th:text="${tugas.tugas_harian}"></td>
+                            <td th:text="${tugas.tanggal_tugas}"></td>
+                            <td th:text="${tugas.supervisor}"></td>
+                            <td><a class="btn btn-warning" style="margin-bottom: 8pt; margin-right: 8pt;" th:href="@{/edittugas/{id}(id=${tugas.id_salesman})}" role="button">Edit</a></td>
+                            <td><a class="btn btn-danger" style="margin-bottom: 8pt; margin-right: 8pt;" th:href="@{/deletetugas/{id}(id=${tugas.id_salesman})}" role="button">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End Of Content -->
+
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

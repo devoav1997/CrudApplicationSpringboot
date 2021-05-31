@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Acc Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+
+        body {
+            background: #eee;
+        }
+
+        /*Invoice*/
+        .invoice .top-left {
+            font-size: 65px;
+            color: #3ba0ff;
+        }
+
+        .invoice .top-right {
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .invoice .table-row {
+            margin-left: -15px;
+            margin-right: -15px;
+            margin-top: 25px;
+        }
+
+        .invoice .payment-info {
+            font-weight: 500;
+        }
+
+        .invoice .table-row .table > thead {
+            border-top: 1px solid #ddd;
+        }
+
+        .invoice .table-row .table > thead > tr > th {
+            border-bottom: none;
+        }
+
+        .invoice .table > tbody > tr > td {
+            padding: 8px 20px;
+        }
+
+        .invoice .invoice-total {
+            margin-right: -10px;
+            font-size: 16px;
+        }
+
+        .invoice .last-row {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .invoice-ribbon {
+            width: 85px;
+            height: 88px;
+            overflow: hidden;
+            position: absolute;
+            top: -1px;
+            right: 14px;
+        }
+
+        .ribbon-inner {
+            text-align: center;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            position: relative;
+            padding: 7px 0;
+            left: -5px;
+            top: 11px;
+            width: 120px;
+            background-color: #66c591;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .ribbon-inner:before,
+        .ribbon-inner:after {
+            content: "";
+            position: absolute;
+        }
+
+        .ribbon-inner:before {
+            left: 0;
+        }
+
+        .ribbon-inner:after {
+            right: 0;
+        }
+
+        @media (max-width: 575px) {
+            .invoice .top-left,
+            .invoice .top-right,
+            .invoice .payment-details {
+                text-align: center;
+            }
+
+            .invoice .from,
+            .invoice .to,
+            .invoice .payment-details {
+                float: none;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 25px;
+            }
+
+            .invoice p.lead,
+            .invoice .from p.lead,
+            .invoice .to p.lead,
+            .invoice .payment-details p.lead {
+                font-size: 22px;
+            }
+
+            .invoice .btn {
+                margin-top: 10px;
+            }
+        }
+
+        @media print {
+            .invoice {
+                width: 900px;
+                height: 800px;
+            }
+            .button {
+                width: 20%;
+                background-color: red;
+                color: white;
+                padding: 10px 20px;
+                margin: 4px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            input[type="submit"] {
+                width: 40%;
+                color: white;
+                padding: 5.7px 20px;
+                border: 1px solid #28a745;
+                color: #28a745;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div>
+                <a class="nav-item" href="/">
+                    <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer">Data Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produk">Data Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kredit">Data Kredit</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Histori Cicilan</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/histori">Histori Cicilan by All</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namacustomer">Histori Cicilan by Customer</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namaproduk">Histori Cicilan by Produk</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tampilansalesman">Tugas Harian</a>
+                    </li>
+                </ul>
+            </div>
+            <form th:action="@{/InsertPembayaranValue}" action="#" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="number" id="" name="idCust" placeholder="ID Customer" aria-label="Search" />
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Customer" />
+            </form>
+        </nav>
+        <!-- End Of Navbar -->
+
+        <!-- Content -->
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+        <div class="container bootstrap snippets bootdeys">
+            <div id="print">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default invoice" id="invoice">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6 top-left">
+                                        <i><img src="/img/ACCFinance.png" width="70" height="70" class="d-inline-block align-top" alt="" /></i>
+                                    </div>
+
+                                    <div class="col-sm-6 top-right">
+                                        <h3 class="marginright">History</h3>
+                                        <span class="marginright">ACC Finance</span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <strong><span>Customer Id:</span></strong>
+                                        <span th:text="${listDataHasilJoin[0][6]}" id="id_cust"></span>
+                                    </div>
+
+                                    <div class="col-sm-6 text-right">
+                                        <strong><span>Tanggal Bayar:</span></strong>
+                                        <span th:text="${listDataHasilJoin[0][2]}" id="tanggal_bayar"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <strong><span>Nama Customer:</span></strong>
+                                        <span th:text="${listDataHasilJoin[0][5]}" id="id_cust"></span>
+                                    </div>
+
+                                    <div class="col-sm-6 text-right">
+                                        <strong><span>Nama Produk:</span></strong>
+                                        <span th:text="${listDataHasilJoin[0][4]}" id="tanggal_bayar"></span>
+                                    </div>
+                                </div>
+                                <div class="row table-row">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width: 5%;">No Reff</th>
+
+                                                <th class="text-center" style="width: 15%;">Total Bayar</th>
+                                                <th class="text-center" style="width: 15%;">Denda</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" th:text="${listDataHasilJoin[0][0]        }" id="id_cust"></td>
+
+                                                <td class="text-center" th:text="${listDataHasilJoin[0][1]}" id="total_trx">Flatter Theme</td>
+                                                <td class="text-center" th:text="${listDataHasilJoin[0][3]}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-6 margintop">
+                                        <p class="lead marginbottom">THANK YOU!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="button" class="btn btn-danger" id="btnExport" value="Print PDF" />
+        </div>
+
+        <!-- End Of Content -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+        <script type="text/javascript">
+            $("body").on("click", "#btnExport", function () {
+                html2canvas($("#print")[0], {
+                    onrendered: function (canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [
+                                {
+                                    image: data,
+                                    width: 500,
+                                },
+                            ],
+                        };
+
+                        pdfMake.createPdf(docDefinition).download("Customer.pdf");
+                    },
+                });
+            });
+        </script>
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>

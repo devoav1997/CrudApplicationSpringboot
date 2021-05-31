@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ACC Finance</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="icon" type="image/png" href="img/ACCFinance.png" />
+    </head>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffa500;
+            color: white;
+            font-family: "Quicksand", sans-serif;
+            text-align: center;
+        }
+        .nav-item {
+            font-size: 20px;
+        }
+    </style>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo_acc.png" width="181" height="66" class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer">Data Customer<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/produk">Data Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/kredit">Data Kredit</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Histori Cicilan</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/histori">Histori Cicilan by All</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namacustomer">Histori Cicilan by Customer</a>
+                            <a class="dropdown-item" href="http://localhost:8888/histori/search/namaproduk">Histori Cicilan by Produk</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tampilansalesman">Tugas Harian</a>
+                    </li>
+                </ul>
+                <form th:action="@{/InsertPembayaranValue}" action="#" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="number" id="" name="idCust" placeholder="ID Customer" aria-label="Search" />
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Customer" />
+                </form>
+            </div>
+        </nav>
+        <!-- End Of Navbar -->
+
+        <!-- Content -->
+        <div th:switch="${diambilcust}">
+            <h2 th:case="null">Customer Data</h2>
+
+            <div th:case="*">
+                <br />
+                <br />
+                <h2 style="text-align: center;">Data Customer</h2>
+                <a class="btn btn-primary float-right" style="margin-bottom: 10pt; margin-right: 20pt;" href="/signupcustomer" role="button">Tambah Customer</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Customer ID</th>
+                            <th scope="col">Nama Customer</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">No KTP</th>
+                            <th scope="col">Kredit ID</th>
+                            <th scope="col">Keterangan</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="customer: ${diambilcust}">
+                            <td scope="row" th:text="${customer.id_cust}"></td>
+                            <td scope="row" th:text="${customer.nama_cust}"></td>
+                            <td scope="row" th:text="${customer.alamat}"></td>
+                            <td scope="row" th:text="${customer.no_ktp}"></td>
+                            <td scope="row" th:text="${customer.id_kredit}"></td>
+                            <td scope="row" th:text="${customer.keterangan}"></td>
+                            <td><a class="btn btn-warning" style="margin-bottom: 8pt; margin-right: 8pt;" th:href="@{/editcustomer/{id}(id=${customer.id_cust})}" role="button"> Edit</a></td>
+                            <td><a class="btn btn-danger" style="margin-bottom: 8pt; margin-right: 8pt;" th:href="@{/deletecustomer/{id}(id=${customer.id_cust})}" role="button"> Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- End Of Content -->
+
+        <!-- Footer -->
+        <div class="footer"><p>Copyright &copy 2021. All Rights Reserved - Batch 11 | Mini Project 2</p></div>
+        <!-- End Of Footer -->
+    </body>
+</html>
