@@ -1,0 +1,1 @@
+this application credit , this application can kredit barang dan bayar kredit barang dan melaporkan kredit dalam bentuk pdf
